@@ -148,13 +148,19 @@ already-blocking answer is sent back as a single SSE chunk when the client
 requests streaming, which NextChat then animates client-side.
 
 **NextChat is not part of this repository.** Clone it as a sibling
-directory, not inside this folder:
+directory, not inside this folder (one-time setup):
 
 ```bash
 cd /Users/rongmingsun/Documents/code_local
 git clone --depth 1 https://github.com/ChatGPTNextWeb/NextChat.git
 cd NextChat
 npm install
+```
+
+After that first-time setup, start (or restart) NextChat with just:
+
+```bash
+cd /Users/rongmingsun/Documents/code_local/NextChat
 npm run dev
 ```
 
