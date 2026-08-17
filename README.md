@@ -89,7 +89,7 @@ Google Maps, a billed Google Cloud project.
 cd /Users/rongmingsun/Documents/code_local/LangGraph_code
 python3 -m venv .venv
 source .venv/bin/activate
-pip install langgraph langchain_anthropic pyyaml requests
+pip install langgraph langchain_anthropic pyyaml requests fastapi "uvicorn[standard]"
 ```
 
 Copy `.env.example` to `.env` and fill in your real API key:
@@ -130,3 +130,57 @@ answer. Type `quit` (or press Ctrl-D) to exit.
   web search agent's `find_nearby_places` tool.
 - `What is LangGraph?` — routed to the web search agent's `search_web`
   tool (Wikipedia).
+
+## Chat UI: NextChat integration
+
+[chat_server.py](chat_server.py) is a small [FastAPI](https://fastapi.tiangolo.com)
+server that wraps `graph` from `langgraph_dynamic_supervisor.py` in an
+OpenAI-compatible `POST /v1/chat/completions` endpoint (same request/response
+shape as OpenAI's Chat Completions API, streaming or not). This lets any chat
+UI that supports a "custom OpenAI endpoint" — such as
+[NextChat](https://github.com/ChatGPTNextWeb/NextChat) — act as a graphical
+front end for the supervisor graph, instead of the terminal REPL.
+
+Each request's full message history is converted to LangChain message tuples
+and passed into `graph.invoke()`, so multi-turn context carries over between
+turns. There's no real token-by-token generation — the graph's full,
+already-blocking answer is sent back as a single SSE chunk when the client
+requests streaming, which NextChat then animates client-side.
+
+**NextChat is not part of this repository.** Clone it as a sibling
+directory, not inside this folder:
+
+```bash
+cd /Users/rongmingsun/Documents/code_local
+git clone --depth 1 https://github.com/ChatGPTNextWeb/NextChat.git
+cd NextChat
+npm install
+npm run dev
+```
+
+That starts NextChat at `http://localhost:3000`. In a separate terminal,
+start the bridge server from this repo:
+
+```bash
+cd /Users/rongmingsun/Documents/code_local/LangGraph_code
+source .venv/bin/activate
+set -a && source .env && set +a
+python chat_server.py
+```
+
+That starts the bridge at `http://localhost:8001`. Then in NextChat's UI,
+go to **Settings** and configure:
+
+- **Custom Endpoint**: enabled
+- **OpenAI Endpoint**: `http://localhost:8001` (NextChat appends
+  `/v1/chat/completions` itself — don't include that part)
+- **OpenAI API Key**: any placeholder value (the bridge doesn't check it)
+- **Custom Models**: `langgraph-supervisor`
+- **Model** (further down the same page): select `langgraph-supervisor`
+
+Close Settings and chat normally. One NextChat quirk worth knowing: its
+"Send Preview Bubble" setting renders a live preview of your draft above the
+input box that looks exactly like an already-sent message, timestamp
+included — it isn't actually sent until you click **Send** (or the real
+submit action fires), so don't mistake the preview for a sent message if no
+reply arrives.
