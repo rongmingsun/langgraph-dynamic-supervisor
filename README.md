@@ -92,7 +92,11 @@ source .venv/bin/activate
 pip install langgraph langchain_anthropic pyyaml requests
 ```
 
-Create a `.env` file in this folder with your API key:
+Copy `.env.example` to `.env` and fill in your real API key:
+
+```bash
+cp .env.example .env
+```
 
 ```
 ANTHROPIC_API_KEY=sk-ant-your-key-here
