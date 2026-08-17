@@ -1,0 +1,9 @@
+name: support_agent
+role: worker
+prompt: >-
+  You are a support agent. Resolve the user's ticket/help question.
+tools:
+  - search_knowledge_base
+  - get_ticket_status
+delegate_description: >-
+  Hand off a support/ticket/troubleshooting request to the support agent.

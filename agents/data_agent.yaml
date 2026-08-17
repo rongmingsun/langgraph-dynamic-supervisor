@@ -1,0 +1,9 @@
+name: data_agent
+role: worker
+prompt: >-
+  You are a data analyst agent. Answer questions using SQL and charts.
+tools:
+  - run_sql_query
+  - generate_chart
+delegate_description: >-
+  Hand off a data/reporting/analytics request to the data analyst agent.
