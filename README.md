@@ -124,7 +124,7 @@ answer. Type `quit` (or press Ctrl-D) to exit.
 - `Check ticket #4521, and also chart last month's ticket volume by
   category.` — routed to *both* agents, with results combined into one
   answer.
-- `Find the latitude/longitude of 2779 Huff Dr, Pleasanton, CA 94588` —
+- `Find the latitude/longitude of 415 Mission St, San Francisco, CA 94105` —
   routed to the web search agent's `geocode_address` tool.
 - `Find coffee shops near the Space Needle in Seattle.` — routed to the
   web search agent's `find_nearby_places` tool.
