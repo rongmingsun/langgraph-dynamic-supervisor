@@ -12,10 +12,9 @@ A minimal example of a two-level dynamic agent architecture built with
   loop that reasons about *which tool* to call from its own tool set.
 
 Both levels use the same mechanism: give the model descriptions of its
-options and let it choose at runtime. This mirrors patterns like
-ServiceNow's Agentic Workflow, and shows what LangChain's
-`create_react_agent` / LangGraph's `create_supervisor` helper do under the
-hood.
+options and let it choose at runtime. This mirrors common agentic workflow
+patterns, and shows what LangChain's `create_react_agent` / LangGraph's
+`create_supervisor` helper do under the hood.
 
 ## Dynamic agent/tool loading
 
