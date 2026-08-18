@@ -174,8 +174,8 @@ set -a && source .env && set +a
 python chat_server.py
 ```
 
-That starts the bridge at `http://localhost:8001`. Then in NextChat's UI,
-go to **Settings** and configure:
+That starts the bridge at `http://localhost:8001`. Then in NextChat's UI
+(`http://localhost:3000`), go to **Settings** and configure:
 
 - **Custom Endpoint**: enabled
 - **OpenAI Endpoint**: `http://localhost:8001` (NextChat appends
