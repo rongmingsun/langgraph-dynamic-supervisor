@@ -1,5 +1,7 @@
 # LangGraph Dynamic Supervisor Example
 
+**[▶ Watch the demo](https://drive.google.com/file/d/1Pgi28OwyFPvXCRPxk_5u4nrB7jcovwHB/view?usp=sharing)**
+
 A minimal example of a two-level dynamic agent architecture built with
 [LangGraph](https://github.com/langchain-ai/langgraph):
 
